@@ -9,8 +9,12 @@ module.exports = {
           targets: {
             electron: devDependencies.electron.replace(/^\^|~/, ''),
           },
-        },
+        }
       },
     ],
   ],
+
+  plugins: [
+    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]
+  ]
 }

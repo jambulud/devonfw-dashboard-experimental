@@ -1,4 +1,5 @@
 import Header from './Header';
+import ResponsiveDrawer from './ResponsiveDrawer';
 import Head from 'next/head';
 
 const layoutStyle = {
@@ -7,15 +8,17 @@ const layoutStyle = {
   border: '1px solid #DDD'
 };
 
+//<Header />
+
 const Layout = (props: { children: any }) => (
   <div style={layoutStyle}>
     <Head>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-      <title>React App</title>
+      <title>devonfw dashboard</title>
     </Head>
-    <Header />
-    {props.children}
+    
+    <ResponsiveDrawer>{props.children}</ResponsiveDrawer>
   </div>
 );
 
