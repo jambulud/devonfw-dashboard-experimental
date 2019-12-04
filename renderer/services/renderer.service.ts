@@ -22,11 +22,17 @@ class Renderer {
         this.channels = [];
     }
 
-    send(channel: string, ...args: any[]): Promise<{ error?: string }> {
-        const result = new Promise((resolve) => {
+    send(channel: string, ...args: any[]): Promise<any> {
+        const result = new Promise<{ error?: string }>((resolve, reject) => {
             global.ipcRenderer.once(
                 channel,
-                (_: IpcRendererEvent, message: any[]) => resolve(message));
+                (_: IpcRendererEvent, message: ReturnMessage) => {
+                    if (message.error) {
+                        reject(message.body);
+                    } else {
+                        resolve(message.body);
+                    }
+                });
 
             global.ipcRenderer.send(channel, ...args);
         });
@@ -35,3 +41,13 @@ class Renderer {
 }
 
 export default Renderer;
+
+export class ReturnMessage {
+    error: boolean;
+    body: {};
+
+    constructor(error: boolean, body: {}) {
+        this.error = error;
+        this.body = body;
+    }
+}
