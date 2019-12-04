@@ -2,9 +2,9 @@ import { Component, MouseEvent, Fragment } from 'react'
 
 
 interface CustomProps {
-    handleInfo: (event: MouseEvent) => void,
-    message: string,
-    command: string,
+    handleInfo: (event: MouseEvent) => void;
+    message: string;
+    command: string;
 }
 
 class Spawned extends Component<CustomProps>{

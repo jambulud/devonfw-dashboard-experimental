@@ -26,11 +26,11 @@ export class TerminalService {
             let result = '';
             let error = ''
             spawn.stdout.on('data', data => { result += data });
-            spawn.stderr.on('data', data => { error += data});
+            spawn.stderr.on('data', data => { error += data });
             spawn.on('close', () => {
-                if(error) {
+                if (error) {
                     reject(result + error)
-                }else {
+                } else {
                     resolve(result + error)
                 }
             });
@@ -113,10 +113,20 @@ export class TerminalService {
 
         try {
             const result = await this.standardHandler(mvn);
-            return result;
+            return new ReturnMessage(false, result);
 
         } catch (error) {
-            return { error };
+            return new ReturnMessage(true, error);
         }
+    }
+}
+
+class ReturnMessage {
+    error: boolean;
+    body: any;
+
+    constructor(error: boolean, body: any) {
+        this.error = error;
+        this.body = body;
     }
 }
