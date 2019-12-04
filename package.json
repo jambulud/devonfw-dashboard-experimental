@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-electron-ts",
+  "name": "devonfw-dashboard",
   "productName": "ElectronNext",
   "version": "1.0.0",
   "main": "main/out/index.js",
@@ -33,6 +33,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.7.1",
     "electron-is-dev": "^1.0.1",
     "electron-next": "^3.1.5"
   }
