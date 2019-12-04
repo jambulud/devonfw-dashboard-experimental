@@ -8,12 +8,12 @@ import Layout from '../components/Layout';
 class HelloElectron extends Component {
   state = {
     input: '',
-    rmdirInput: null,
-    mkdirMessage: null,
-    rmdirMessage: null,
-    mvnMessage: null,
-    lsMessage: null,
-    pwdMessage: null,
+    rmdirInput: '',
+    mkdirMessage: '',
+    rmdirMessage: '',
+    mvnMessage: '',
+    lsMessage: '',
+    pwdMessage: '',
     dialog: [],
   }
 
@@ -46,7 +46,8 @@ class HelloElectron extends Component {
 
   handleSendOpenDialog = async () => {
     const message = await this.messageSender.sendOpenDialog();
-    this.setState({ dialog: message['filePaths'] })
+    /* message['filePaths'] */
+    this.setState({ dialog: [] });
   }
 
   handleSendMvn = async () => {

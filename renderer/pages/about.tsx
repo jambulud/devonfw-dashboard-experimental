@@ -2,8 +2,6 @@ import { Component, KeyboardEvent, ChangeEvent, createRef, RefObject, Fragment }
 import Layout from '../components/Layout';
 import Renderer from '../services/renderer.service';
 
-type KeyboardTarget = KeyboardEvent<HTMLInputElement> & { target: { value: string } };
-
 export interface AboutState {
   previous: Array<{ cwd: string, cmd: string }>;
   input: string;
@@ -15,7 +13,7 @@ export default class About extends Component {
   state = {
     previous: [],
     input: '',
-    cwd: null,
+    cwd: '',
   }
 
   renderer: Renderer;
@@ -51,35 +49,44 @@ export default class About extends Component {
     if (e.key === 'Enter') {
       const inputClean = this.state.input.trim();
       const cwdClean = this.state.cwd.trim();
-      const response = await this.renderer.send('terminal/all-commands', inputClean, cwdClean);
-
       let cwd = cwdClean;
-      let message: { error?: string } | string = response;
-      if (!response.error) {
+      let message: any;
+
+      try {
+        message = await this.renderer.send('terminal/all-commands', inputClean, cwdClean);
         if (inputClean.startsWith('cd ')) {
           const resp = await this.renderer.send('terminal/all-commands', `${inputClean} && cd`, cwd);
           cwd = resp.toString().trim();
         }
-      } else {
-        message = response.error;
-      }
 
-      this.setState((prevState: Readonly<AboutState>) => {
-        const executedInCwd = `${prevState.cwd}`;
-        const executedCmd = `\$ ${prevState.input}\n${message}`;
-        const previousCmd = { cwd: executedInCwd, cmd: executedCmd };
-        const previous = [...prevState.previous, previousCmd];
-        return { previous, input: '', cwd };
-      }, this.scrollToBottom);
+      } catch (error) {
+        message = error;
+
+      } finally {
+        this.setState((prevState: Readonly<AboutState>) => {
+          const executedInCwd = `${prevState.cwd}`;
+          const executedCmd = `\$ ${prevState.input}\n${message}`;
+          const previousCmd = { cwd: executedInCwd, cmd: executedCmd };
+          const previous = [...prevState.previous, previousCmd];
+          return { previous, input: '', cwd };
+        }, this.scrollToBottom);
+
+      }
     }
   };
 
   focusTextInput = () => {
-    this.textInput.current.focus();
+    let current = this.textInput.current;
+    if (current) {
+      current.focus();
+    }
   }
 
   scrollToBottom = () => {
-    this.scrollAnchor.current.scrollIntoView({ behavior: 'smooth' });
+    let current = this.scrollAnchor.current;
+    if (current) {
+      current.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   displayCommand = (cwd: string, cmd: string) => {
@@ -118,7 +125,9 @@ export default class About extends Component {
         <div className="terminal" onClick={this.focusTextInput}>
           <div className="terminal__previous">
             <pre>Hello this is a terminal</pre>
-            {this.state.previous.map(prevCmd => this.displayCommand(prevCmd.cwd, prevCmd.cmd))}
+            {this.state.previous.map(
+              (prevCmd: { cwd: string, cmd: string }) => this.displayCommand(prevCmd.cwd, prevCmd.cmd)
+            )}
           </div>
           <span className="font--console color--green">{this.state.cwd}</span><br />
           $ <input
