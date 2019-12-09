@@ -1,5 +1,6 @@
 import { Component, KeyboardEvent, ChangeEvent, createRef, RefObject, Fragment } from 'react'
 import Layout from '../components/Layout';
+import SpaceAround from '../components/SpaceAround';
 import Renderer from '../services/renderer.service';
 
 export interface AboutState {
@@ -121,25 +122,26 @@ export default class About extends Component {
   render() {
     return (
       <Layout>
-        <p>This is the about page</p>
-        <div className="terminal" onClick={this.focusTextInput}>
-          <div className="terminal__previous">
-            <pre>Hello this is a terminal</pre>
-            {this.state.previous.map(
-              (prevCmd: { cwd: string, cmd: string }) => this.displayCommand(prevCmd.cwd, prevCmd.cmd)
-            )}
+        <SpaceAround>
+          <p>This is the about page</p>
+          <div className="terminal" onClick={this.focusTextInput}>
+            <div className="terminal__previous">
+              <pre>Hello this is a terminal</pre>
+              {this.state.previous.map(
+                (prevCmd: { cwd: string, cmd: string }) => this.displayCommand(prevCmd.cwd, prevCmd.cmd)
+              )}
+            </div>
+            <span className="font--console color--green">{this.state.cwd}</span><br />
+            $ <input
+              ref={this.textInput}
+              value={this.state.input}
+              className="terminal__input font--console"
+              placeholder="write your command"
+              onChange={this.handleChange}
+              onKeyDown={this.handleSendCommand} />
+            <div ref={this.scrollAnchor}></div>
           </div>
-          <span className="font--console color--green">{this.state.cwd}</span><br />
-          $ <input
-            ref={this.textInput}
-            value={this.state.input}
-            className="terminal__input font--console"
-            placeholder="write your command"
-            onChange={this.handleChange}
-            onKeyDown={this.handleSendCommand} />
-          <div ref={this.scrollAnchor}></div>
-        </div>
-        <style jsx>{`
+          <style jsx>{`
           h1 {
             color: green;
             font-size: 50px;
@@ -187,8 +189,8 @@ export default class About extends Component {
             color: #00FF66
           }
         `}
-        </style>
-
+          </style>
+        </SpaceAround>
       </Layout>
     );
   };

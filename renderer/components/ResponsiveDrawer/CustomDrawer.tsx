@@ -9,12 +9,19 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const CustomDrawer = (props: {classes: any}) => (
     <div>
       <div className={props.classes.toolbar} />
       <Divider />
       <List>
+        <ListItem button component={NextLink} href="/home">
+          <ListItemIcon>
+            <HomeOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary='Home' />
+        </ListItem>
         <ListItem button component={NextLink} href="/ides">
           <ListItemIcon>
             <DesktopWindowsOutlinedIcon />
@@ -33,7 +40,7 @@ const CustomDrawer = (props: {classes: any}) => (
           </ListItemIcon>
           <ListItemText primary='Installed tools' />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={NextLink} href="/wiki">
           <ListItemIcon>
             <DescriptionOutlinedIcon />
           </ListItemIcon>

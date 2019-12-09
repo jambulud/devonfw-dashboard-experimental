@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import SpaceAround from '../components/SpaceAround'
 import { makeStyles } from '@material-ui/core/styles';
 import IdeCard from '../components/cards/IdeCards';
 
@@ -16,23 +17,25 @@ export default function MediaCard() {
 
   return (
     <Layout>
-      <div className={classes.cardsContainer}>
-        <IdeCard
-          image="/assets/eclipse.png"
-          title="Eclipse IDE"
-          description="Eclipse contains a base workspace and an extensible plug-in system for customizing the environment."
-        ></IdeCard>
-        <IdeCard
-          image="/assets/vscode.png"
-          title="VS Code"
-          description="Eclipse contains a base workspace and an extensible plug-in system for customizing the environment."
-        ></IdeCard>
-        <IdeCard
-          image="/assets/intellij.png"
-          title="Intellij"
-          description="Its powerful static code analysis and ergonomic design make development not only productive but also an enjoyable experience."
-        ></IdeCard>
-      </div>
+      <SpaceAround>
+        <div className={classes.cardsContainer}>
+          <IdeCard
+            image="/assets/eclipse.png"
+            title="Eclipse IDE"
+            description="Eclipse contains a base workspace and an extensible plug-in system for customizing the environment."
+          ></IdeCard>
+          <IdeCard
+            image="/assets/vscode.png"
+            title="VS Code"
+            description="Eclipse contains a base workspace and an extensible plug-in system for customizing the environment."
+          ></IdeCard>
+          <IdeCard
+            image="/assets/intellij.png"
+            title="Intellij"
+            description="Its powerful static code analysis and ergonomic design make development not only productive but also an enjoyable experience."
+          ></IdeCard>
+        </div>
+      </SpaceAround>
     </Layout >
   );
 }

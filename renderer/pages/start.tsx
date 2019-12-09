@@ -4,6 +4,7 @@ import DialogRes from '../components/DialogRes';
 import Directory from '../components/Directory';
 import { MessageSenderService } from '../services/messageSender.service';
 import Layout from '../components/Layout';
+import SpaceAround from '../components/SpaceAround'
 
 class HelloElectron extends Component {
   state = {
@@ -67,39 +68,41 @@ class HelloElectron extends Component {
   render() {
     return (
       <Layout>
-        <h1>Hello Electron!</h1>
-        <Spawned
-          message={this.state.lsMessage}
-          command="ls"
-          handleInfo={this.handleSendLs}>
-        </Spawned>
-        <Spawned
-          message={this.state.pwdMessage}
-          command="pwd"
-          handleInfo={this.handleSendPwd}>
-        </Spawned>
-        <Directory
-          message={this.state.mkdirMessage}
-          command="mkdir"
-          handleInfo={this.handleSendMkdir}
-          handleInput={this.handleInput}>
-        </Directory>
-        <Directory
-          message={this.state.rmdirMessage}
-          command="rmdir"
-          handleInfo={this.handleSendRmdir}
-          handleInput={this.handleRmdirInput}>
-        </Directory>
-        <DialogRes
-          message={this.state.dialog}
-          command="open dialog"
-          handleInfo={this.handleSendOpenDialog}>
-        </DialogRes>
-        <Spawned
-          message={this.state.mvnMessage}
-          command="mvn --help"
-          handleInfo={this.handleSendMvn}>
-        </Spawned>
+        <SpaceAround>
+          <h1>Hello Electron!</h1>
+          <Spawned
+            message={this.state.lsMessage}
+            command="ls"
+            handleInfo={this.handleSendLs}>
+          </Spawned>
+          <Spawned
+            message={this.state.pwdMessage}
+            command="pwd"
+            handleInfo={this.handleSendPwd}>
+          </Spawned>
+          <Directory
+            message={this.state.mkdirMessage}
+            command="mkdir"
+            handleInfo={this.handleSendMkdir}
+            handleInput={this.handleInput}>
+          </Directory>
+          <Directory
+            message={this.state.rmdirMessage}
+            command="rmdir"
+            handleInfo={this.handleSendRmdir}
+            handleInput={this.handleRmdirInput}>
+          </Directory>
+          <DialogRes
+            message={this.state.dialog}
+            command="open dialog"
+            handleInfo={this.handleSendOpenDialog}>
+          </DialogRes>
+          <Spawned
+            message={this.state.mvnMessage}
+            command="mvn --help"
+            handleInfo={this.handleSendMvn}>
+          </Spawned>
+        </SpaceAround>
       </Layout>
     );
   }
