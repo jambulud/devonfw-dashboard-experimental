@@ -28,7 +28,7 @@ const CustomDrawer = (props: {classes: any}) => (
           </ListItemIcon>
           <ListItemText primary='IDE' />
         </ListItem>
-        <ListItem button component={NextLink} href="/about">
+        <ListItem button component={NextLink} href="/repositories">
           <ListItemIcon>
             <StorageOutlinedIcon />
           </ListItemIcon>

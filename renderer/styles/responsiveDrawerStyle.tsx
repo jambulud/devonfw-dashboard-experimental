@@ -18,6 +18,7 @@ const drawerStyle = (theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
+      background: theme.palette.background.paper,
     },
     menuButton: {
       marginRight: theme.spacing(2),

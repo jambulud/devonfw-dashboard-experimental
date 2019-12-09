@@ -16,7 +16,7 @@ export default class Home extends Component {
         </p>
           <p>
             For further details visit the following links:
-          <ul>
+            <ul>
               <li><a>features &amp; motivation</a></li>
               <li><a>download &amp; setup</a></li>
               <li><a>usage</a></li>
