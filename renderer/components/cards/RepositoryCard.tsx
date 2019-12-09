@@ -58,7 +58,7 @@ export default function RepositoryCard(props: Repository) {
         <Button size="small">
           {'Copy Github URL'}
         </Button>
-        <Button size="small">
+        <Button size="small"variant="contained" color="primary">
           {'Open repository'}
         </Button>
       </CardActions>

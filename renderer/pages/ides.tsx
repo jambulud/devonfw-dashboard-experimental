@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import SpaceAround from '../components/SpaceAround'
 import { makeStyles } from '@material-ui/core/styles';
-import IdeCard from '../components/cards/IdeCards';
+import IdeCard from '../components/cards/IdeCard';
 
 const useStyles = makeStyles({
   cardsContainer: {
@@ -32,7 +32,7 @@ export default function MediaCard() {
           <IdeCard
             image="/assets/intellij.png"
             title="Intellij"
-            description="Its powerful static code analysis and ergonomic design make development not only productive but also an enjoyable experience."
+            description="Its powerful static code analysis and ergonomic design makes development a productive and enjoyable experience."
           ></IdeCard>
         </div>
       </SpaceAround>

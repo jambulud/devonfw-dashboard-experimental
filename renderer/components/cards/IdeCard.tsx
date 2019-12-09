@@ -11,7 +11,8 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   card: {
     maxWidth: 300,
-    margin: '0 1rem 1rem 0'
+    margin: '0 1rem 1rem 0',
+    paddingTop: '1rem'
   },
   media: {
     height: 120
@@ -51,7 +52,7 @@ export default function IdeCard(props: IdeCardsProps) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" variant="contained" color="primary">
           Open
         </Button>
       </CardActions>
