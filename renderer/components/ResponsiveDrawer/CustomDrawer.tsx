@@ -15,19 +15,19 @@ const CustomDrawer = (props: {classes: any}) => (
       <div className={props.classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button component={NextLink} href="/about">
+        <ListItem button component={NextLink} href="/ides">
           <ListItemIcon>
             <DesktopWindowsOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary='IDE' />
         </ListItem>
-        <ListItem button component={NextLink} href="/start">
+        <ListItem button component={NextLink} href="/about">
           <ListItemIcon>
             <StorageOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary='Repositories' />
+          <ListItemText primary='Repositories'/>
         </ListItem>
-        <ListItem button>
+        <ListItem button component={NextLink} href="/start">
           <ListItemIcon>
             <BuildOutlinedIcon />
           </ListItemIcon>

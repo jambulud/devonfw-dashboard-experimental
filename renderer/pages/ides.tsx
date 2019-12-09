@@ -1,0 +1,38 @@
+import React from 'react';
+import Layout from '../components/Layout';
+import { makeStyles } from '@material-ui/core/styles';
+import IdeCard from '../components/cards/IdeCards';
+
+const useStyles = makeStyles({
+  cardsContainer: {
+    display: 'flex',
+    'flex-wrap': 'wrap',
+    'justify-content': 'space-evenly'
+  }
+});
+
+export default function MediaCard() {
+  const classes = useStyles();
+
+  return (
+    <Layout>
+      <div className={classes.cardsContainer}>
+        <IdeCard
+          image="/assets/eclipse.png"
+          title="Eclipse IDE"
+          description="Eclipse contains a base workspace and an extensible plug-in system for customizing the environment."
+        ></IdeCard>
+        <IdeCard
+          image="/assets/vscode.png"
+          title="VS Code"
+          description="Eclipse contains a base workspace and an extensible plug-in system for customizing the environment."
+        ></IdeCard>
+        <IdeCard
+          image="/assets/intellij.png"
+          title="Intellij"
+          description="Its powerful static code analysis and ergonomic design make development not only productive but also an enjoyable experience."
+        ></IdeCard>
+      </div>
+    </Layout >
+  );
+}

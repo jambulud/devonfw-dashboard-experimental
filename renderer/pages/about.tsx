@@ -149,7 +149,7 @@ export default class About extends Component {
             padding: 16px;
             border: solid 2px gray;
             height: 300px;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
             background-color: #333;
             color: white;

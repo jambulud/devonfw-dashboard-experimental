@@ -1,4 +1,3 @@
-import Header from './Header';
 import ResponsiveDrawer from './ResponsiveDrawer/ResponsiveDrawer';
 import Head from 'next/head';
 
@@ -7,8 +6,6 @@ const layoutStyle = {
   padding: 20,
   border: '1px solid #DDD'
 };
-
-//<Header />
 
 const Layout = (props: { children: any }) => (
   <div style={layoutStyle}>

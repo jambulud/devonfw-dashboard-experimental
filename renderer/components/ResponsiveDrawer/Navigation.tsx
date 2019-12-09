@@ -15,7 +15,7 @@ const Navigation = (props: {
             <Hidden smUp implementation="js">
                 <Drawer
                     variant="temporary"
-                    anchor={'right'}
+                    anchor={'left'}
                     open={props.mobileOpen}
                     onClose={props.drawerToggle}
                     classes={{

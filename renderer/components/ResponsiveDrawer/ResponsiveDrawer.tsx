@@ -38,7 +38,7 @@ export default function ResponsiveDrawer(props: { children: any }) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Navigation classes={classes} mobileOpen drawerToggle={handleDrawerToggle} />
+      <Navigation classes={classes} mobileOpen={mobileOpen} drawerToggle={handleDrawerToggle} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
