@@ -1,7 +1,6 @@
 import CustomDrawer from './CustomDrawer';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
-import { useTheme } from '@material-ui/core/styles';
 
 type StyleClasses = Record<"content" | "toolbar" | "root" | "drawer" | "appBar" | "menuButton" | "drawerPaper", string>;
 

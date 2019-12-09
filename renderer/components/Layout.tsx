@@ -1,5 +1,5 @@
 import Header from './Header';
-import ResponsiveDrawer from './ResponsiveDrawer';
+import ResponsiveDrawer from './ResponsiveDrawer/ResponsiveDrawer';
 import Head from 'next/head';
 
 const layoutStyle = {
