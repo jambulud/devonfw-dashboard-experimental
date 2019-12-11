@@ -11,7 +11,7 @@ import Navigation from './Navigation';
 const useStyles = responsiveDrawerStyle;
 
 
-export default function ResponsiveDrawer(props: { children: any }) {
+export default function ResponsiveDrawer(props: { children: any, title?: string }) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -34,7 +34,7 @@ export default function ResponsiveDrawer(props: { children: any }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            {props.title? props.title : 'Responsive drawer'}
           </Typography>
         </Toolbar>
       </AppBar>

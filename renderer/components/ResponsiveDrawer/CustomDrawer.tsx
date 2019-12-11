@@ -10,6 +10,7 @@ import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import CreateNewFolderOutlinedIcon from '@material-ui/icons/CreateNewFolderOutlined';
 
 const CustomDrawer = (props: {classes: any}) => (
     <div>
@@ -21,6 +22,12 @@ const CustomDrawer = (props: {classes: any}) => (
             <HomeOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary='Home' />
+        </ListItem>
+        <ListItem button component={NextLink} href="/start">
+          <ListItemIcon>
+            <CreateNewFolderOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary='New project' />
         </ListItem>
         <ListItem button component={NextLink} href="/ides">
           <ListItemIcon>
@@ -34,7 +41,7 @@ const CustomDrawer = (props: {classes: any}) => (
           </ListItemIcon>
           <ListItemText primary='Repositories'/>
         </ListItem>
-        <ListItem button component={NextLink} href="/start">
+        <ListItem button component={NextLink} href="/about">
           <ListItemIcon>
             <BuildOutlinedIcon />
           </ListItemIcon>
