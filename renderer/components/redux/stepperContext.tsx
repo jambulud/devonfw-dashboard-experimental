@@ -1,26 +1,25 @@
-import * as React from "react";
+import * as React from 'react';
+import { StepperActionType, StepperAction } from './stepperActions';
 
-interface IStepper {
+interface StepperState {
   activeStep: number;
 }
 
-type Action = { type: "SET_ACTIVE" | "NEXT_STEP" | "PREVIOUS_STEP"};
-
-const initialState: IStepper = {
+const initialState: StepperState = {
   activeStep: 0,
 };
 
-const reducer = (state: IStepper = initialState, action: Action) => {
+const reducer = (state: StepperState = initialState, action: StepperAction) => {
   switch (action.type) {
-    case "SET_ACTIVE": {
+    case 'SET_ACTIVE': {
       return { ...state };
     }
 
-    case "NEXT_STEP": {
+    case 'NEXT_STEP': {
       return { ...state };
     }
 
-    case "PREVIOUS_STEP": {
+    case 'PREVIOUS_STEP': {
       return { ...state };
     }
     default:
@@ -29,11 +28,11 @@ const reducer = (state: IStepper = initialState, action: Action) => {
 };
 
 export const StepperContext = React.createContext<{
-  state: typeof initialState;
-  dispatch: (action: Action) => void;
+  state: StepperState;
+  dispatch: (action: StepperAction) => void;
 }>({
   state: initialState,
-  dispatch: () => {}
+  dispatch: () => {},
 });
 export const StepperConsumer = StepperContext.Consumer;
 
@@ -42,6 +41,8 @@ export function StepperProvider(props: any) {
   const value = { state, dispatch };
   console.log(value);
   return (
-    <StepperContext.Provider value={value}>{props.children}</StepperContext.Provider>
+    <StepperContext.Provider value={value}>
+      {props.children}
+    </StepperContext.Provider>
   );
 }
