@@ -22,6 +22,10 @@ class Renderer {
         this.channels = [];
     }
 
+    sendMultiple(channel: string, ...args: any[]) {
+        global.ipcRenderer.send(channel, ...args)
+    }
+
     send(channel: string, ...args: any[]): Promise<any> {
         const result = new Promise<{ error?: string }>((resolve, reject) => {
             global.ipcRenderer.once(

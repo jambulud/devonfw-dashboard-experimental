@@ -1,4 +1,4 @@
-import { spawn, exec, ChildProcessWithoutNullStreams, SpawnOptionsWithoutStdio } from 'child_process';
+import { spawn, exec, ChildProcessWithoutNullStreams } from 'child_process';
 import Process from '../decorators/process';
 import { dialog } from 'electron';
 

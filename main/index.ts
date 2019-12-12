@@ -1,6 +1,8 @@
 // Native
 import { join } from 'path';
 import { format } from 'url';
+import { IpcMainEvent } from 'electron';
+import { spawn, exec, StdioOptions, SpawnOptions } from 'child_process';
 
 // Packages
 import { BrowserWindow, app, ipcMain } from 'electron';
@@ -25,7 +27,7 @@ app.on('ready', async () => {
     },
   })
 
-  if(isDev) {
+  if (isDev) {
     mainWindow.webContents.openDevTools();
   }
 
@@ -49,4 +51,58 @@ terminalService.rmdir(null);
 terminalService.pwd();
 terminalService.openDialog();
 terminalService.mvnInstall();
-terminalService.allCommands(null, null);
+//terminalService.allCommands(null, null);
+
+class ReturnMessage {
+  error: boolean;
+  body: any;
+
+  constructor(error: boolean, body: any) {
+    this.error = error;
+    this.body = body;
+  }
+}
+
+
+async function allCommands(command: string, cwd?: string) {
+  if (!command) return '';
+
+  const options = cwd ? { cwd } : undefined
+  let mvn = spawn(command, [], options);
+
+  try {
+    const result = await this.standardHandler(mvn);
+    return new ReturnMessage(false, result);
+
+  } catch (error) {
+    return new ReturnMessage(true, error);
+  }
+}
+
+/*  */
+
+const eventHandler = (event: IpcMainEvent, ...eventArgs: any[]) => {
+  const command = eventArgs[0];
+  const cwd = eventArgs[1];
+  console.log('received message:' + command)
+
+  if (!command) event.sender.send('terminal/powershell', '');
+  const stdioOptions: StdioOptions = ['pipe', 'pipe', 'pipe'];
+
+  let options: SpawnOptions = { stdio: stdioOptions };
+  options = cwd ? { ...options, cwd } : options
+  const terminal = spawn(`powershell.exe`, [], options);
+
+  terminal.stdout.on('data', data => {
+    console.log('sending data: ' + data.toString())
+    event.sender.send('terminal/powershell', data.toString())
+  });
+  terminal.stderr.on('data', data => console.error(data.toString()));
+  terminal.on('close', () => {
+    console.log('closed stream')
+  });
+
+  terminal.stdin.write(command + "\n")
+}
+
+ipcMain.on('terminal/powershell', eventHandler);
