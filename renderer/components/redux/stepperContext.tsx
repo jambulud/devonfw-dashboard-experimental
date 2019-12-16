@@ -1,36 +1,65 @@
 import * as React from 'react';
-import { StepperActionType, StepperAction } from './stepperActions';
+import { StepperAction } from './stepperActions';
+import { INgData } from './data.model';
 
 interface StepperState {
-  activeStep: number;
+  activeStep: number | undefined;
+  stack: string | undefined;
+  stackData: INgData | undefined;
 }
 
 const initialState: StepperState = {
   activeStep: 0,
+  stack: '',
+  stackData: undefined,
 };
 
 const reducer = (state: StepperState = initialState, action: StepperAction) => {
+  let activeStep = state.activeStep ? state.activeStep : 0;
+  console.log('activeStep; ' + activeStep);
+
   switch (action.type) {
+    case 'SET_STACK': {
+      console.log(activeStep)
+      return {
+        ...state,
+        stack: action.payload && action.payload.stack,
+        activeStep: activeStep + 1,
+      };
+    }
+
+    case 'SET_STACK_DATA': {
+      return {
+        ...state,
+        stackData: action.payload && action.payload.stackData,
+      };
+    }
+
     case 'SET_ACTIVE': {
-      return { ...state };
+      return {
+        ...state,
+        activeStep: action.payload && action.payload.activeStep,
+      };
     }
 
     case 'NEXT_STEP': {
-      return { ...state };
+      return { ...state, activeStep: activeStep + 1 };
     }
 
     case 'PREVIOUS_STEP': {
-      return { ...state };
+      return { ...state, activeStep: activeStep - 1 };
     }
     default:
       throw new Error();
   }
 };
 
-export const StepperContext = React.createContext<{
+export interface IStepperContext {
   state: StepperState;
   dispatch: (action: StepperAction) => void;
-}>({
+}
+
+export const StepperContext = React.createContext<IStepperContext>({
   state: initialState,
   dispatch: () => {},
 });

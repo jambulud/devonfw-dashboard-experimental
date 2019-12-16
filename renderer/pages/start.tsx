@@ -1,11 +1,10 @@
 import { Component } from 'react'
 import Layout from '../components/Layout';
 import SpaceAround from '../components/SpaceAround'
-import MaterialStepper from '../components/Stepper/MaterialStepper';
 import { Button } from '@material-ui/core';
 import Renderer from '../services/renderer.service';
-import StackCard from '../components/cards/stackCard';
 import CustomStepper from '../components/Stepper/CustomStepper';
+import { StepperProvider } from '../components/redux/stepperContext'
 
 interface HelloState {
   messages: string[]
@@ -50,7 +49,9 @@ class HelloElectron extends Component {
         </Button>
 
           {this.state.messages.map((msg: string) => <p>{msg}</p>)}
-          <CustomStepper/>
+          <StepperProvider>
+            <CustomStepper/>
+          </StepperProvider>
         </SpaceAround>
       </Layout>
     );

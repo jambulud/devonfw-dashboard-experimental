@@ -1,44 +1,40 @@
 import { Component, MouseEvent } from 'react';
 import MaterialStepper, { StepObject } from './MaterialStepper';
-import DataStep from './steps/projectDataStep';
-import TypeStep from './steps/projectTypeStep';
-
-interface CustomStepperState {
-  messages: string[];
-}
+import TypeStep from './first/TypeStep';
+import DataStep from './second/DataStep';
+import { StepperContext, IStepperContext } from '../redux/stepperContext';
 
 class CustomStepper extends Component {
-  state = {
-    stack: '',
-    stackData: { name: '', routing: true }
-  };
-
-  handleAngular = (event: MouseEvent) => {
-    console.log('clicked angular');
-    this.setState({ stack: 'angular' });
-  };
-
-  handleData = (event: MouseEvent) => {
-    console.log('clicked angular');
-    this.setState({ stackData: { name: 'my-new-project'} });
-  };
+  //inheritContext: IStepperContext = this.context;
 
   steps: StepObject[] = [
     {
       title: 'Project type',
       content: 'Project type',
-      stepJSX: <TypeStep onClick={this.handleAngular}></TypeStep>,
+      stepJSX: <TypeStep></TypeStep>,
     },
     {
       title: 'Projects data',
       content: 'Project data',
-      stepJSX: <DataStep onClick={this.handleData}></DataStep>,
+      stepJSX: <DataStep></DataStep>,
     },
   ];
 
   render() {
-    return <MaterialStepper steps={this.steps} />;
+    let activeStep = this.context.state.activeStep;
+    console.log(this.context.state)
+    activeStep = activeStep ? activeStep : 0;
+    console.log(activeStep)
+
+    return (
+      <>
+        <MaterialStepper steps={this.steps} />
+        {this.steps[activeStep].stepJSX}
+      </>
+    );
   }
 }
+
+CustomStepper.contextType = StepperContext;
 
 export default CustomStepper;
