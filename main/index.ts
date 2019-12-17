@@ -51,33 +51,7 @@ terminalService.rmdir(null);
 terminalService.pwd();
 terminalService.openDialog();
 terminalService.mvnInstall();
-//terminalService.allCommands(null, null);
-
-class ReturnMessage {
-  error: boolean;
-  body: any;
-
-  constructor(error: boolean, body: any) {
-    this.error = error;
-    this.body = body;
-  }
-}
-
-
-async function allCommands(command: string, cwd?: string) {
-  if (!command) return '';
-
-  const options = cwd ? { cwd } : undefined
-  let mvn = spawn(command, [], options);
-
-  try {
-    const result = await this.standardHandler(mvn);
-    return new ReturnMessage(false, result);
-
-  } catch (error) {
-    return new ReturnMessage(true, error);
-  }
-}
+terminalService.allCommands(null, null);
 
 /*  */
 
