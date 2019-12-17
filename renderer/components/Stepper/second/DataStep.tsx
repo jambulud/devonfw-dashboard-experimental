@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { StepperContext } from '../../redux/stepperContext';
-import NgData from '../angular/NgData';
+import NgData from './angular/NgData';
 
 class DataStep extends Component {
 

@@ -1,21 +1,32 @@
-import { Component, KeyboardEvent, ChangeEvent, createRef, RefObject, Fragment } from 'react'
+import {
+  Component,
+  KeyboardEvent,
+  ChangeEvent,
+  createRef,
+  RefObject,
+  Fragment,
+} from 'react';
 import Layout from '../components/Layout';
 import SpaceAround from '../components/SpaceAround';
 import Renderer from '../services/renderer.service';
 
 export interface AboutState {
-  previous: Array<{ cwd: string, cmd: string }>;
+  previous: Array<{ cwd: string; cmd: string }>;
   input: string;
   cwd: string;
 }
 
-export default class About extends Component {
+export interface AboutProps {
+  initialCommand?: string;
+  initialCwd?: string;
+}
 
+export default class About extends Component<AboutProps, AboutState> {
   state = {
     previous: [],
     input: '',
     cwd: '',
-  }
+  };
 
   renderer: Renderer;
   textInput: RefObject<HTMLInputElement>;
@@ -29,21 +40,19 @@ export default class About extends Component {
   }
 
   componentDidMount() {
-    this.renderer.send('terminal/all-commands', 'cd').then(
-      cwd => {
-        this.setState({ cwd })
-      }
-    );
+    this.renderer.send('terminal/all-commands', 'cd').then((cwd) => {
+      this.setState({ cwd });
+    });
   }
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ input: event.target.value })
-  }
+    this.setState({ input: event.target.value });
+  };
 
   /**
-   * Sends a command to the node process. If it is a "cd" command 
+   * Sends a command to the node process. If it is a "cd" command
    * the new current working directory is saved
-   * 
+   *
    * @memberof About
    */
   handleSendCommand = async (e: KeyboardEvent) => {
@@ -54,15 +63,21 @@ export default class About extends Component {
       let message: any;
 
       try {
-        message = await this.renderer.send('terminal/all-commands', inputClean, cwdClean);
+        message = await this.renderer.send(
+          'terminal/all-commands',
+          inputClean,
+          cwdClean,
+        );
         if (inputClean.startsWith('cd ')) {
-          const resp = await this.renderer.send('terminal/all-commands', `${inputClean} && cd`, cwd);
+          const resp = await this.renderer.send(
+            'terminal/all-commands',
+            `${inputClean} && cd`,
+            cwd,
+          );
           cwd = resp.toString().trim();
         }
-
       } catch (error) {
         message = error;
-
       } finally {
         this.setState((prevState: Readonly<AboutState>) => {
           const executedInCwd = `${prevState.cwd}`;
@@ -71,7 +86,6 @@ export default class About extends Component {
           const previous = [...prevState.previous, previousCmd];
           return { previous, input: '', cwd };
         }, this.scrollToBottom);
-
       }
     }
   };
@@ -81,117 +95,123 @@ export default class About extends Component {
     if (current) {
       current.focus();
     }
-  }
+  };
 
   scrollToBottom = () => {
     let current = this.scrollAnchor.current;
     if (current) {
       current.scrollIntoView({ behavior: 'smooth' });
     }
-  }
+  };
 
   displayCommand = (cwd: string, cmd: string) => {
     return (
       <Fragment>
         <pre className="terminal__path mb-0 color--green">{cwd}</pre>
         <pre className="terminal__command mt-0">{cmd}</pre>
-        <style jsx>{`
-          .terminal__command, .terminal__path {
-            width: 100%;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-          }
-          .color--green {
-            color: #00FF66
-          }
+        <style jsx>
+          {`
+            .terminal__command,
+            .terminal__path {
+              width: 100%;
+              overflow-wrap: break-word;
+              white-space: pre-wrap;
+            }
+            .color--green {
+              color: #00ff66;
+            }
 
-          .mb-0 {
-            margin-bottom: 0;
-          }
+            .mb-0 {
+              margin-bottom: 0;
+            }
 
-          .mt-0 {
-            margin-top: 0;
-          }
-        `}
+            .mt-0 {
+              margin-top: 0;
+            }
+          `}
         </style>
       </Fragment>
-    )
-  }
-
+    );
+  };
 
   render() {
     return (
       <Layout>
         <SpaceAround>
-          <p>This is the about page</p>
           <div className="terminal" onClick={this.focusTextInput}>
             <div className="terminal__previous">
               <pre>Hello this is a terminal</pre>
               {this.state.previous.map(
-                (prevCmd: { cwd: string, cmd: string }) => this.displayCommand(prevCmd.cwd, prevCmd.cmd)
+                (prevCmd: { cwd: string; cmd: string }) =>
+                  this.displayCommand(prevCmd.cwd, prevCmd.cmd),
               )}
             </div>
-            <span className="font--console color--green">{this.state.cwd}</span><br />
-            $ <input
+            <span className="font--console color--green">{this.state.cwd}</span>
+            <br />
+            ${' '}
+            <input
               ref={this.textInput}
               value={this.state.input}
               className="terminal__input font--console"
               placeholder="write your command"
               onChange={this.handleChange}
-              onKeyDown={this.handleSendCommand} />
+              onKeyDown={this.handleSendCommand}
+            />
             <div ref={this.scrollAnchor}></div>
           </div>
-          <style jsx>{`
-          h1 {
-            color: green;
-            font-size: 50px;
-          }
+          <style jsx>
+            {`
+              h1 {
+                color: green;
+                font-size: 50px;
+              }
 
-          .terminal {
-            padding: 16px;
-            border: solid 2px gray;
-            height: 300px;
-            width: 100%;
-            max-width: 1000px;
-            background-color: #333;
-            color: white;
-            overflow-y: auto;
-          }
+              .terminal {
+                padding: 16px;
+                border: solid 2px gray;
+                height: 300px;
+                width: 100%;
+                max-width: 1000px;
+                background-color: #333;
+                color: white;
+                overflow-y: auto;
+              }
 
-          .terminal__input {
-            background-color: inherit;
-            border: none;
-            caret-color: white;
-            color: inherit;
-            width: calc(100% - 1rem);
-          }
+              .terminal__input {
+                background-color: inherit;
+                border: none;
+                caret-color: white;
+                color: inherit;
+                width: calc(100% - 1rem);
+              }
 
-          .terminal__input:focus {
-            outline-width: 0;
-          }
+              .terminal__input:focus {
+                outline-width: 0;
+              }
 
-          .terminal__command, .terminal__path {
-            width: 100%;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-          }
+              .terminal__command,
+              .terminal__path {
+                width: 100%;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+              }
 
-          .terminal__path {
-            color: #00FF66
-          }
+              .terminal__path {
+                color: #00ff66;
+              }
 
-          .font--console {
-            font-family: monospace,monospace;
-            font-size:0.8125rem;
-          }
+              .font--console {
+                font-family: monospace, monospace;
+                font-size: 0.8125rem;
+              }
 
-          .color--green {
-            color: #00FF66
-          }
-        `}
+              .color--green {
+                color: #00ff66;
+              }
+            `}
           </style>
         </SpaceAround>
       </Layout>
     );
-  };
+  }
 }

@@ -1,6 +1,6 @@
 import { useContext, MouseEvent } from 'react';
-import { StepperContext } from '../../redux/stepperContext';
-import StackCard from '../../cards/stackCard';
+import { StepperContext } from '../../../redux/stepperContext';
+import StackCard from '../../../cards/stackCard';
 
 const NgType = () => {
   const { dispatch } = useContext(StepperContext);

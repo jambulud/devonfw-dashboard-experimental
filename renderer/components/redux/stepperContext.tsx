@@ -16,7 +16,6 @@ const initialState: StepperState = {
 
 const reducer = (state: StepperState = initialState, action: StepperAction) => {
   let activeStep = state.activeStep ? state.activeStep : 0;
-  console.log('activeStep; ' + activeStep);
 
   switch (action.type) {
     case 'SET_STACK': {

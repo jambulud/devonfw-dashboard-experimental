@@ -1,4 +1,4 @@
-import NgType from '../angular/NgType';
+import NgType from './angular/NgType';
 
 const TypeStep = () => {
 

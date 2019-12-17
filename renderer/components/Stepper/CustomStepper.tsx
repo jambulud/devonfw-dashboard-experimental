@@ -5,7 +5,6 @@ import DataStep from './second/DataStep';
 import { StepperContext, IStepperContext } from '../redux/stepperContext';
 
 class CustomStepper extends Component {
-  //inheritContext: IStepperContext = this.context;
 
   steps: StepObject[] = [
     {
@@ -22,9 +21,7 @@ class CustomStepper extends Component {
 
   render() {
     let activeStep = this.context.state.activeStep;
-    console.log(this.context.state)
     activeStep = activeStep ? activeStep : 0;
-    console.log(activeStep)
 
     return (
       <>

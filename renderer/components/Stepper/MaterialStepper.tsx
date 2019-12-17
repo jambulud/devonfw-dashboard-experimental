@@ -4,16 +4,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { StepperContext } from '../redux/stepperContext';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      marginTop: '4rem',
-    },
-  }),
-);
-
 export interface StepObject {
   title: string;
   content: string;
@@ -25,13 +15,13 @@ interface StepperProps {
 }
 
 class MaterialStepper extends Component<StepperProps> {
-  //classes = useStyles();
-
-  getStep = (step: StepObject) => (
-    <Step key={step.title}>
-      <StepLabel>{step.title}</StepLabel>
-    </Step>
-  );
+  getStep(step: StepObject) {
+    return (
+      <Step key={step.title}>
+        <StepLabel>{step.title}</StepLabel>
+      </Step>
+    );
+  }
 
   render() {
     return (
