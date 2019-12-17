@@ -3,6 +3,7 @@ import MaterialStepper, { StepObject } from './MaterialStepper';
 import TypeStep from './first/TypeStep';
 import DataStep from './second/DataStep';
 import { StepperContext, IStepperContext } from '../redux/stepperContext';
+import ExecutionStep from './third/ExecutionStep';
 
 class CustomStepper extends Component {
 
@@ -13,9 +14,14 @@ class CustomStepper extends Component {
       stepJSX: <TypeStep></TypeStep>,
     },
     {
-      title: 'Projects data',
+      title: 'Project data',
       content: 'Project data',
       stepJSX: <DataStep></DataStep>,
+    },
+    {
+      title: 'Execute commands',
+      content: 'Execute commands',
+      stepJSX: <ExecutionStep></ExecutionStep>,
     },
   ];
 

@@ -47,8 +47,6 @@ class HelloElectron extends Component {
           }}>
             Create project
         </Button>
-
-          {this.state.messages.map((msg: string) => <p>{msg}</p>)}
           <StepperProvider>
             <CustomStepper/>
           </StepperProvider>

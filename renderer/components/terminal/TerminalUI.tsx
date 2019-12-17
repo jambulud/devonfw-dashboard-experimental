@@ -61,13 +61,10 @@ class TerminalUI extends Component<TerminalUIProps, TerminalUIState> {
               border: solid 2px gray;
               height: 300px;
               width: 100%;
-              max-width: 1000px;
               background-color: #333;
               color: white;
               overflow-y: auto;
             }
-
-            
 
             .terminal__command,
             .terminal__path {

@@ -9,8 +9,9 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   card: {
     maxWidth: 300,
-    margin: '0 1rem 1rem 0',
-    paddingTop: '1rem'
+    minWidth: 250,
+    margin: '0',
+    padding: '1rem 0 0 0',
   },
   media: {
     height: 120
@@ -19,6 +20,10 @@ const useStyles = makeStyles({
   containImg: {
     'background-size': 'contain',
     margin: '0 1rem',
+  },
+
+  textCenter: {
+    'text-align': 'center',
   }
 });
 
@@ -42,7 +47,7 @@ export default function StackCard(props: StackProps) {
           title={command}
         />
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" className={classes.textCenter}>
             {command}
           </Typography>
         </CardContent>
